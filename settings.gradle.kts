@@ -1,3 +1,6 @@
+
+rootProject.name = "compose-web-canvas-utils"
+
 dependencyResolutionManagement {
     versionCatalogs {
         create("deps") {
@@ -19,4 +22,4 @@ pluginManagement {
     }
 }
 
-rootProject.name = "compose-web-canvas-utils"
+includeBuild("convention-plugins")

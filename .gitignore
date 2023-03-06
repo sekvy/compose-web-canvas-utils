@@ -43,6 +43,9 @@
 *.iml
 *.ipr
 
+.idea/kotlinc.xml
+.idea/vcs.xml
+
 # CMake
 cmake-build-*/
 
@@ -153,4 +156,24 @@ gradle-app.setting
 # End of https://www.toptal.com/developers/gitignore/api/kotlin,intellij,gradle
 build
 gpm.json
+
+/local.properties
+!.idea/codeStyles
 .DS_Store
+/captures
+.externalNativeBuild
+jacoco.exec
+local.properties
+*.pyc
+*.swp
+project-coverage.json
+latest-project-coverage.json
+project-coverage.html
+task-timings.json
+timings.json
+local-settings.gradle
+mre-tools/
+/tools/scripts/coverage-rules.json
+/tools/scripts/json-coverage-report.json
+/test-plan.json
+/test-app

@@ -3,6 +3,8 @@ plugins {
     alias(deps.plugins.kotlinter)
     kotlin("multiplatform")
     id("org.jetbrains.compose")
+    id("org.jetbrains.dokka") version "1.7.10"
+    id("convention.publication")
 }
 
 group = "se.sekvy"
