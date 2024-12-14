@@ -14,6 +14,7 @@ group = "se.sekvy"
 version = "0.1.1-alpha"
 
 repositories {
+    google()
     mavenCentral()
     maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
 }
@@ -23,18 +24,18 @@ kotlin {
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs{browser()}
 
-    applyDefaultHierarchyTemplate()
-
     sourceSets {
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material)
             implementation(compose.ui)
+            implementation(libs.androidx.lifecycle.runtime.compose)
         }
-        val wasmJsMain by getting
+        // Sharing kotlinx.browser etc seems broken..
+        val wasmJsMain by getting {
+        }
         val jsMain by getting {
-            dependsOn(wasmJsMain)
         }
     }
 }

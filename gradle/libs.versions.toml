@@ -8,6 +8,7 @@ dokka = "1.9.20"
 
 [libraries]
 sekvy-composemarkdown = { module = "se.sekvy:compose-markdown", version = "1.0.0-alpha02" }
+androidx-lifecycle-runtime-compose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
 
 [bundles]
 

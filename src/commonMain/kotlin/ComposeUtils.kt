@@ -3,6 +3,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -14,10 +15,14 @@ import androidx.compose.ui.graphics.toComposeImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import model.UiDirection
 import org.jetbrains.skia.Image
+import org.jetbrains.skiko.ClipboardManager
+import org.jetbrains.skiko.URIManager
 import org.jetbrains.skiko.loadBytesFromPath
 
 /**
@@ -64,4 +69,10 @@ fun Float.pxToDp(): Dp = (this / LocalDensity.current.density).dp
 const val showBorders: Boolean = false
 fun Modifier.showBorder(color: Color = Color.Red): Modifier {
     return if (showBorders) border(2.dp, color) else this
+}
+
+fun State<IntOffset>.toUIDirection() = if (value.x > value.y) {
+    UiDirection.Horizontal
+} else {
+    UiDirection.Vertical
 }
