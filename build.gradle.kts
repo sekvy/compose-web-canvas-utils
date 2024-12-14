@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
+
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.composeMultiplatform)
@@ -17,18 +19,22 @@ repositories {
 }
 
 kotlin {
-    js(IR) {
-        browser {}
-        binaries.executable()
-    }
+    js(IR){browser()}
+    @OptIn(ExperimentalWasmDsl::class)
+    wasmJs{browser()}
+
+    applyDefaultHierarchyTemplate()
+
     sourceSets {
+        commonMain.dependencies {
+            implementation(compose.runtime)
+            implementation(compose.foundation)
+            implementation(compose.material)
+            implementation(compose.ui)
+        }
+        val wasmJsMain by getting
         val jsMain by getting {
-            dependencies {
-                implementation(compose.ui)
-                implementation(compose.foundation)
-                implementation(compose.material)
-                implementation(compose.runtime)
-            }
+            dependsOn(wasmJsMain)
         }
     }
 }

@@ -3,7 +3,6 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -11,23 +10,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
-import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.graphics.toComposeImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
-import kotlinx.browser.document
-import kotlinx.browser.window
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import model.UiDirection
 import org.jetbrains.skia.Image
-import org.jetbrains.skiko.ClipboardManager
-import org.jetbrains.skiko.URIManager
 import org.jetbrains.skiko.loadBytesFromPath
-import org.w3c.dom.HTMLStyleElement
 
 /**
  * Loads the image of the give path
@@ -63,23 +54,6 @@ suspend fun loadBitmap(path: String) =
         loadBytesFromPath(path)
     ).toComposeImageBitmap()
 
-/**
- * Converts the color to a hex color string
- */
-fun Color.toHexCode(removeAlpha: Boolean = true) =
-    toArgb().toUInt().toString(16).drop(if (removeAlpha) 2 else 0)
-
-/**
- * Creates an output like rgba(255, 255, 255, 0.5)
- */
-fun Color.htmlRgba(): String {
-    val r = (red * 255.0f + 0.5f).toInt()
-    val g = (green * 255.0f + 0.5f).toInt()
-    val b = (blue * 255.0f + 0.5f).toInt()
-    val a = alpha
-    return "rgba($r, $g, $b, $a)"
-}
-
 @Composable
 fun Dp.toPx(): Float = LocalDensity.current.density * value
 
@@ -91,33 +65,3 @@ const val showBorders: Boolean = false
 fun Modifier.showBorder(color: Color = Color.Red): Modifier {
     return if (showBorders) border(2.dp, color) else this
 }
-
-fun setClipboard(content: String) {
-    ClipboardManager().setText(content)
-}
-
-fun openWebpage(url: String) {
-    URIManager().openUri(url)
-}
-
-fun setBackground(backgroundColor: Color? = null) {
-    requireNotNull(document.head).appendChild(
-        (document.createElement("style") as HTMLStyleElement).apply {
-            type = "text/css"
-            backgroundColor?.let {
-                appendChild(document.createTextNode("body { background-color: ${backgroundColor.htmlRgba()}; }"))
-            }
-        }
-    )
-}
-
-fun State<IntOffset>.toUIDirection() = if (value.x > value.y) {
-    UiDirection.Horizontal
-} else {
-    UiDirection.Vertical
-}
-
-val hashValue
-    get() = window.location.hash.trim().replace("#", "").lowercase()
-
-const val CANVAS_ELEMENT_ID = "ComposeTarget" // Hardwired into ComposeWindow
