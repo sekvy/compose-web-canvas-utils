@@ -76,3 +76,10 @@ fun State<IntOffset>.toUIDirection() = if (value.x > value.y) {
 } else {
     UiDirection.Vertical
 }
+
+fun setClipboard(content: String) {
+    ClipboardManager().setText(content)
+}
+fun openWebpage(url: String) {
+    URIManager().openUri(url)
+}
