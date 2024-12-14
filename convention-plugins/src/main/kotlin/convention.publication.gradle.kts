@@ -46,13 +46,6 @@ if (secretPropsFile.exists()) {
     ext["info.developer.email"] = System.getenv("INFO_DEVELOPER_EMAIL")
 }
 
-val javadocJar: TaskProvider<Jar> by tasks.registering(Jar::class) {
-    archiveClassifier.set("javadoc")
-    description = "Package all dokka HTML docs into a single jar for publication"
-    dependsOn("dokkaHtml")
-    from(buildDir.resolve("dokka/html"))
-}
-
 fun getExtraString(name: String) = ext[name]?.toString()
 
 publishing {
@@ -70,9 +63,21 @@ publishing {
 
     // Configure all publications
     publications.withType<MavenPublication> {
+        val publication = this
+        val dokkaJar = project.tasks.register("${publication.name}DokkaJar", Jar::class) {
+            group = JavaBasePlugin.DOCUMENTATION_GROUP
+            description = "Assembles Kotlin docs with Dokka into a Javadoc jar"
+            archiveClassifier.set("javadoc")
+            from(buildDir.resolve("dokka/html"))
+
+            // Each archive name should be distinct, to avoid implicit dependency issues.
+            // We use the same format as the sources Jar tasks.
+            // https://youtrack.jetbrains.com/issue/KT-46466
+            archiveBaseName.set("${archiveBaseName.get()}-${publication.name}")
+        }
 
         // Stub javadoc.jar artifact
-        artifact(javadocJar.get())
+        artifact(dokkaJar.get())
 
         // Provide artifacts information requited by Maven Central
         pom {

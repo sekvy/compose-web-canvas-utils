@@ -1,6 +1,7 @@
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraintsScope
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
@@ -72,6 +73,12 @@ fun Modifier.showBorder(color: Color = Color.Red): Modifier {
 }
 
 fun State<IntOffset>.toUIDirection() = if (value.x > value.y) {
+    UiDirection.Horizontal
+} else {
+    UiDirection.Vertical
+}
+
+fun BoxWithConstraintsScope.toUIDirection() = if (this.constraints.maxWidth > this.constraints.maxHeight) {
     UiDirection.Horizontal
 } else {
     UiDirection.Vertical

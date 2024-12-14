@@ -11,7 +11,7 @@ plugins {
 }
 
 group = "se.sekvy"
-version = "0.1.1-alpha"
+version = "1.0.3-alpha-local"
 
 repositories {
     google()
