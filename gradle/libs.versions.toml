@@ -1,0 +1,20 @@
+[versions]
+ben-manes-versions = "0.51.0"
+kotlinter = "5.0.1"
+kotlin = "2.1.0"
+compose-multiplatform = "1.7.0"
+androidx-lifecycle = "2.8.4"
+dokka = "1.9.20"
+
+[libraries]
+sekvy-composemarkdown = { module = "se.sekvy:compose-markdown", version = "1.0.0-alpha02" }
+
+[bundles]
+
+[plugins]
+kotlinter = { id = "org.jmailen.kotlinter", version.ref = "kotlinter" }
+benManesVersions = { id = "com.github.ben-manes.versions", version.ref = "ben-manes-versions" }
+composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }
+composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }

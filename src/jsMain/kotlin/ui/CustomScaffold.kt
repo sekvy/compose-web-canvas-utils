@@ -1,5 +1,7 @@
 package ui
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
@@ -12,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
@@ -30,10 +33,8 @@ fun CustomScaffold(
     endContent: @Composable BoxScope.() -> Unit = {},
     overlay: @Composable (BoxWithConstraintsScope.() -> Unit)
 ) {
-    Surface(
-        modifier = Modifier.showBorder().fillMaxSize(),
-        color = MaterialTheme.colors.background,
-        elevation = 0.dp
+    Box(
+        modifier = Modifier.showBorder().fillMaxSize().background(MaterialTheme.colors.background),
     ) {
         BoxWithConstraints(
             modifier = Modifier.fillMaxSize(),

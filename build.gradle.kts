@@ -1,10 +1,11 @@
 plugins {
-    alias(deps.plugins.benManesVersions)
-    alias(deps.plugins.kotlinter)
-    kotlin("multiplatform")
-    id("org.jetbrains.compose")
-    id("org.jetbrains.dokka") version "1.7.10"
+    alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.composeMultiplatform)
+    alias(libs.plugins.composeCompiler)
     id("convention.publication")
+    alias(libs.plugins.benManesVersions)
+    alias(libs.plugins.kotlinter)
+    alias(libs.plugins.dokka)
 }
 
 group = "se.sekvy"
