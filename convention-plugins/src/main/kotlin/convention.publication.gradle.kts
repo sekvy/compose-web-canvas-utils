@@ -15,6 +15,8 @@ ext["signing.password"] = null
 ext["signing.secretKeyRingFile"] = null
 ext["ossrhUsername"] = null
 ext["ossrhPassword"] = null
+ext["ossrhToken"] = null
+ext["ossrhTokenPassword"] = null
 ext["info.project.url"] = null
 ext["info.project.name"] = null
 ext["info.project.description"] = null
@@ -55,8 +57,8 @@ publishing {
             name = "sonatype"
             setUrl("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
             credentials {
-                username = getExtraString("ossrhUsername")
-                password = getExtraString("ossrhPassword")
+                username = getExtraString("ossrhToken")
+                password = getExtraString("ossrhTokenPassword")
             }
         }
     }
